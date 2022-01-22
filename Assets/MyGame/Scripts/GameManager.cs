@@ -10,26 +10,41 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text scoreText;
     [SerializeField] Text nameText;
 
+    [SerializeField] GameObject[] lifeObjects; 
+
     [SerializeField] PlayerInfo playerInfo;
 
     [Header("Parameters")]
     [SerializeField] int startTime; //in seconds
-    [SerializeField] int lives;
     [SerializeField] int score;
 
     float currentTime;
+    int lifeAmmount; 
 
     private void Start()
     {
         currentTime = startTime;
         nameText.text = playerInfo.playerName;
         scoreText.text = score.ToString();
+
+        lifeAmmount = lifeObjects.Length;
     }
 
     private void countTime(int startTime)
     {
         currentTime = currentTime - Time.deltaTime;
-        print(currentTime);
+        //print(currentTime);
+        if(currentTime <= 0)
+        {
+            playerInfo.playerScore = score; 
+            if(score > playerInfo.playerHighscore)
+            {
+                playerInfo.playerHighscore = score; 
+            }
+
+            playerInfo.lost = false;
+            ManageScenes.Instance.NextScene();
+        }
     }
 
     public void AddScore(int _score)
@@ -37,6 +52,7 @@ public class GameManager : MonoBehaviour
         score += _score;
         scoreText.text = score.ToString();
     }
+
 
     void displayTime(float time)
     {
@@ -51,6 +67,18 @@ public class GameManager : MonoBehaviour
         else
             timeText.text = minutes.ToString() + ":" + seconds.ToString();
         
+    } 
+
+    public void LoseLife()
+    {
+        lifeObjects[lifeAmmount - 1].SetActive(false);
+        lifeAmmount -= 1; 
+        if(lifeAmmount <= 0)
+        {
+            playerInfo.playerScore = 0; 
+            playerInfo.lost = true;
+            ManageScenes.Instance.NextScene();
+        }
     }
 
     private void Update()

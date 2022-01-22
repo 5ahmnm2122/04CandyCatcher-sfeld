@@ -22,6 +22,10 @@ public class Candy : MonoBehaviour
         }
         if(collision.gameObject.tag == "Player")
         {
+            if (badCandy)
+            {
+                gameManager.LoseLife();
+            }
             gameManager.AddScore(score);
             Destroy(gameObject);
         }

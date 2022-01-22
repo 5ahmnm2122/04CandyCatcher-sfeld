@@ -24,8 +24,10 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //print(Input.GetAxis("Horizontal"));
         position = player.transform.position; 
-        Vector3 newPos = position + new Vector3(Input.GetAxis("Horizontal")/100 * speed, 0, 0);
+        Vector3 newPos = position + new Vector3(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0, 0);
         if (newPos.x < xMin || newPos.x > xMax)
             newPos = position;
 
