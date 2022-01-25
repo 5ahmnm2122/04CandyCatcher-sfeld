@@ -7,6 +7,9 @@ Wildestes Game südlich der Donau TM
 
 ### Development platform: 
 OS: Windows 10, Game Engine: Unity 2020.3.18f1 LTS, Visual Studio 2019, 
+
+Cinemachine Pagackage  2.6.11
+
 ### Target platform: 
 WebGL 
 ### Third party material: 
